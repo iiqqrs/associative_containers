@@ -1,0 +1,49 @@
+Okay squad, this is what we gotta do
+
+3 data structures:
+    Linked List         - Done
+    Dynamic ARR         - Done
+    Hash Map            - Done
+    
+12 Implementations:
+
+    void Set::insert(string key)
+    bool Set::is_in(string key)
+    void Set::remove(string key)
+    bool Set::is_empty()
+    for:
+    Set_LinkList        - Done
+    Set_DynamicArr      - Done
+    Set_HashMap         - Done
+    
+    
+    void MSet::insert(string key)
+    bool MSet::is_in(string key)
+    unsigned long MSet::count(string key)
+    void MSet::removeOne(string key)
+    void MSet::removeAll(string key)
+    bool MSet::is_empty()
+    for:
+    Multiset_LinkList   - Done
+    Multiset_DynamicArr - Done
+    Multiset_HashMap    - Done
+    
+    
+    void Map::set(string key, int value)
+    void Map::remove(string key)
+    int Map::get(string key)
+    int& Map::operator[](string key)
+    for:
+    Map_LinkList        - Done
+    Map_DynamicArr      - Done
+    Map_HashMap         - Done
+    
+    
+    void Map::set(string key, int value)
+    void Map::removeAll(string key)
+    int Map::count(string key)
+    int* Map::getAll(string key) **NOTE: If you try to getAll on a key that's not in storage you
+    for:                                 get a segfault...not sure if he wants us to account for this.
+    Multimap_LL         - Done
+    Multimap_DArr       - Done
+    Multimap_HMap       - Done

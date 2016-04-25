@@ -1,0 +1,244 @@
+// Tests
+
+set_llist* setLList = new set_llist("test");
+    setLList->insert("tester2");
+    cout << "1?: " << setLList->is_in("test") <<endl;
+    cout << "Is Empty? (Should be 0): " << (setLList->is_empty()) <<endl;
+    setLList->remove("test");
+    
+    cout << "0?: " << setLList->is_in("test") <<endl;
+    cout << "Is Empty? (Should still be 0): " << (setLList->is_empty()) <<endl;
+    setLList->remove("tester2");
+    cout << "Is Empty? (Should be 1): " << (setLList->is_empty()) <<endl;
+    
+    //cout << setLList->list->getStarter()->stringVal << endl;
+    //cout << setLList->list->getStarter()->nextNode->stringVal << endl;
+    delete setLList;
+    
+    
+    
+    // As of commenting the following block of code out it works dont edit / delete
+    /*hmap *h = new hmap();
+    h->set("test", 3);
+    h->set("test", 8);
+    intNode* list = h->getList("test");
+    
+    cout << "GetList 1 returns: " << list->intVal << endl;
+     cout << "GetList 2 returns: " << list->nextNode->intVal << endl;
+    
+    cout << "True?: " << h->is_in("test") << endl;
+    cout << "Should be 3: " << h->get("test") <<endl;
+    h->remove("test");
+    cout << "False?: " << h->is_in("test") << endl;
+    
+    h->set("newVal", 5);
+    cout << "Should be 5: " << h->get("newVal") <<endl;
+    delete h;*/
+
+    
+    /*darray *newArray = new darray();
+    //cout << "List is empty?: " << newArray->is_empty() << endl;
+    //newArray->set("Andrew", 23);
+    //cout << "Should be false: " << newArray->is_in("Andrew") <<endl;
+    newArray->insert("Andrew");
+    newArray->insert("Andrew");
+    //cout << "Should be true: " << newArray->is_in("Andrew") <<endl;
+    newArray->remove("Andrew", true);
+    //cout << "Should be false: " << newArray->is_in("Andrew") <<endl;
+    delete newArray;
+    
+    
+    LinkedList *ll = new LinkedList();
+    //cout << "Should be false " << ll->contains("Hello") <<endl;
+    ll->addNode("Hello");
+    //cout << "Should be true " << ll->contains("Hello") <<endl;
+    ll->removeNode("Hello");
+    //cout << "Should be false " << ll->contains("Hello") <<endl;
+    //ll->addNode("Test");
+    //ll->printList();
+    delete ll;*/
+    
+    
+    /*
+    set_hmap* setHMAP = new set_hmap();
+    
+    
+    //Testing is_in and insert
+    setHMAP->insert("test");
+    cout << "Is test in? It should be 1: " << setHMAP->is_in("test") << endl;
+    cout << "Is test2 in? It should be 0: " << setHMAP->is_in("test2") << endl;
+    setHMAP->insert("test2");
+    cout << "Is test2 in? It should be 1: " << setHMAP->is_in("test") << endl;
+    
+    //Testing remove
+    setHMAP->insert("test");
+    cout << "Is test in? It should be 1: " << setHMAP->is_in("test") << endl;
+    setHMAP->remove("test");
+    cout << "Is test in? It should be 0: " << setHMAP->is_in("test") << endl;
+    setHMAP->remove("test2");
+    
+    
+    //Testing is_empty()
+    cout << "empty should be true: " << setHMAP->is_empty() << endl;
+    setHMAP->insert("test");
+    cout << "empty should be false: " << setHMAP->is_empty() << endl;
+    setHMAP->remove("test");
+    cout << "empty should be true: " << setHMAP->is_empty() << endl;
+    delete setHMAP;
+    */
+    
+    
+    /*
+    multiset_llist* m_llist = new multiset_llist();
+    cout << "should be empty: " << m_llist->is_empty() << endl;
+    
+   /* cout << "test should be in the list: " << m_llist->is_in("test") << endl;
+    cout << "test2 should not be in the list: " << m_llist->is_in("test2") << endl;
+    m_llist->insert("test2");
+    m_llist->insert("test2");
+    cout << "test2 should be in the list: " << m_llist->is_in("test2") << endl;
+    m_llist->removeAll("test2");
+    cout << "test2 shouldnt be in the list: " << m_llist->is_in("test2") << endl;*/
+    
+    /*
+   multiset_darray* array = new multiset_darray();
+   array->insert("test");
+   cout << "Test should not be in darray: " << array->is_in("test") << endl;
+   array->insert("test");
+   cout << "Test count is: " << array->count("test") << endl;
+   array->removeAll("test"); 
+   cout << "Test should be in darray: " << array->is_in("test") << endl;
+   array->removeOne("test");
+   cout << "Test should not be in darray: " << array->is_in("test") << endl;
+   
+   cout << "Is the list empty? It should be true: " << array->is_empty() << endl;
+   array->insert("test");
+   cout << "Is the list empty? It should be false: " << array->is_empty() << endl;*/
+   
+   
+    //Tests for multiset_hmap
+   multiset_hmap* myHmap = new multiset_hmap();
+   cout << "The multiset is empty. Should be 1: " << myHmap->is_empty() << endl;
+   myHmap->insert("Test");
+   cout << "The multiset is not empty. Should be 0: " << myHmap->is_empty() << endl;
+   cout << "Conversely, because there is an item in the list, is_in should return 1: " << myHmap->is_in("Test") << endl;
+   myHmap->insert("Test2");
+   cout << "Is 'Test2' in? Should be 1: " << myHmap->is_in("Test2") << endl;
+   cout << "Trying to insert 'Test' a second time" << endl;
+   myHmap->insert("Test");
+   cout << "Now the count of 'Test' should be 2: " << myHmap->count("Test") << endl;
+   cout << "Removing one 'Test'" << endl;
+   myHmap->removeOne("Test");
+   cout << "Now the count should be 1: " << myHmap->count("Test") << endl;
+   cout << "Testing removeAll on 'Test': " << endl;
+   myHmap->removeAll("Test");
+   cout << "Count should now be 0: " << myHmap->count("Test") << endl;
+   
+   
+    /*
+  Tests for Map LinkedList
+  map_llist* newMap = new map_llist();
+  newMap->set("Test",3);
+  cout << "Trying to insert 'Test' twice..." << endl;
+  newMap->set("Test", 4);
+  
+  cout << "Should be 3: " << newMap->get("Test") << endl;
+  cout << "Shouldn't find a value (0): " << newMap->get("NotIn") << endl;
+  cout << "Removing 'Test'..." << endl;
+  newMap->remove("Test");
+  cout << "Shouldn't find a value (0): " << newMap->get("Test") << endl;
+  
+  newMap->set("Test",6);
+  cout << "Inserted 'Test' and 6." << endl;
+  cout << "Should be 6: " << (*newMap)["Test"] << endl;
+  delete newMap;*/
+  
+  /*//Tests for Map Dynamic Array
+  map_darray* newArray = new map_darray();
+  newArray->set("Test", 5);
+  cout << "Getting 'Test'; value should be 5: " << newArray->get("Test") << endl;
+  
+  cout << "Attempting to insert 'Test' again..." <<  endl;
+  newArray->set("Test", 6);
+  cout << "Removing 'Test'..." << endl;
+  newArray->remove("Test");
+  cout << "Test shouldn't be in the map: " << newArray->get("Test") << endl;
+  
+  cout << "Inserting 'Test' again" << endl;
+  newArray->set("Test", 9);
+  cout << "Should be 9: " <<  (*newArray)["Test"] << endl;*/
+  
+  //map_hmap tests
+  map_hmap* newMap = new map_hmap();
+  newMap->set("Jess",33);
+  cout <<"Should be 33: " << newMap->get("Jess") << endl; 
+  newMap->set("Jess", 69);
+  cout <<"Should be 69: " << newMap->get("Jess") << endl;
+  (*newMap)["Jess"] = 55;
+  cout <<"Should be 55: " << newMap->get("Jess") << endl;
+  newMap->remove("Jess");
+  cout <<"Should break(0): " << newMap->get("Jess") << endl;
+  
+  delete newMap;
+  
+  //Tests for multimap_darray  
+  /*multimap_darray* multiD = new multimap_darray();
+  cout << "Inserting 'Test' with value 4..." << endl;
+  multiD->set("Test", 4);
+  cout << "Count should be 1: " << multiD->count("Test") << endl;
+  cout << "Inserting 'Test' with value 8..." << endl;
+  multiD->set("Test", 8);
+  cout << "Count should now be 2: " << multiD->count("Test") << endl;
+  cout << "Inserting 'Test2' with value 4..." << endl;
+  multiD->set("Test2", 4);
+  cout << "Inserting 'Test2' with value 5..." << endl;
+  multiD->set("Test2", 5);
+  cout << "Count at Test2 should be 2: " << multiD->count("Test2")  << endl;
+  cout << "Removing all of 'Test'..." << endl;
+  multiD->removeAll("Test");
+  cout << "Count at 'Test' should now be 0: " << multiD->count("Test") << endl;
+  cout << "But count at 'Test2' should still be 2: " << multiD->count("Test2") << endl;
+ 
+  cout << "Attempting to get the contents of 'Test2'..." << endl;
+  int* list = multiD->getAll("Test2");
+  cout << "Should be 4: " << (list[0]) << endl;
+  cout << "Should be 5: " << (list[1]) << endl;*/
+  
+  //Tests for multimap llist
+  /*multimap_llist* myList = new multimap_llist();
+  myList->set("Test", 4);
+  myList->set("Test", 2);
+  myList->set("Test2", 4);
+  myList->set("Test", 8);
+  myList->set("Test2", 7);
+  myList->set("Test", 33);
+  cout << "Count for 'Test' should be 4: " << myList->count("Test") << endl;
+  cout << "Count for 'Test2' should be 2: " << myList->count("Test2") << endl;
+  
+  cout << "Removing all of 'Test'..." << endl;
+  myList->removeAll("Test");
+  cout << "Count for 'Test' should be 0: " << myList->count("Test") << endl;
+  cout << "But the count for 'Test2' should still be 2: " <<  myList->count("Test2") << endl;
+  cout << "Value should be 4: " << (myList->getAll("Test2"))[0] << endl;
+  cout << "Value should be 7: " << (myList->getAll("Test2"))[1] << endl;*/
+  
+  
+  //Testing multimap_hmap
+  /*multimap_hmap* myHMAP = new multimap_hmap();
+  
+  myHMAP->set("Test",3);
+  myHMAP->set("Test2",4);
+  myHMAP->set("Test",7);
+  myHMAP->set("Test2",22);
+  myHMAP->set("Test",1274);
+  
+  cout << "Count on 'Test' should be 3: " << myHMAP->count("Test") << endl;
+  cout << "Count on 'Test2' should be 2: " << myHMAP->count("Test2") << endl;
+  cout << "Removing 'Test'..." << endl;
+  myHMAP->removeAll("Test");
+  cout << "Count on 'Test' should be 0: " << myHMAP->count("Test") << endl;
+  cout << "Count on 'Test2' should still be 2: " << myHMAP->count("Test2") << endl; 
+  
+  int* intList = myHMAP->getAll("Test2");
+  cout << "Should be 4: " << intList[0] << endl;
+  cout << "Should be 22: " << intList[1] << endl;*/
