@@ -17,17 +17,17 @@ struct arr_Node {
     int intCounter;
     LinkedList intList; //for multimap
     arr_Node(){
-        isIn = true;
+        isIn = false;
         intVal=0;
         stringVal;
-        counter = 1;
+        counter = 0;
         intCounter = 0;
     }
 };
 
 class darray {
     private:
-        arr_Node* dynamicArray = NULL; //Might need to change data type
+        arr_Node* dynamicArray = NULL;
         int size = 0;
         int getIndex(string key);
     public:
@@ -38,7 +38,7 @@ class darray {
         void remove(string key, bool all);
         bool is_empty();
         void set(string key, int value);
-        int  getSingle(string key);
+        int&  getSingle(string key);
         int* getList(string key);
         arr_Node* getArray();
         int getSize();

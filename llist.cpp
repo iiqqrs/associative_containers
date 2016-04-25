@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
 #include "llist.h"
-
+#include "darray.h"
 using namespace std;
-
 
 //Constructor
 LinkedList::LinkedList(int integVal, string key) {
@@ -36,6 +35,12 @@ intNode* LinkedList::createNode(int integVal, string key) {
     
     nodePtr->intVal = integVal;
     nodePtr->stringVal = key;
+    if (contains(key)) {
+        searchNode(key)->counter += 1;
+    }
+    else {
+        nodePtr->counter +=1;
+    }
     return nodePtr;
 }
 
@@ -43,6 +48,7 @@ intNode* LinkedList::createNode(string key) {
     intNode* nodePtr = new intNode;
     
     nodePtr->stringVal = key;
+    nodePtr->counter += 1;
     return nodePtr;
 }
 
@@ -64,7 +70,8 @@ void LinkedList::addNode(int integVal, string key){
         this->starterNode = newNodePtr;
         this->nodeOnDeck = newNodePtr;
         
-    }else{
+    }
+    else{
         intNode* addedNodePtr = createNode(integVal, key);
         nodeOnDeck->nextNode = addedNodePtr;
         addedNodePtr->prevNode = nodeOnDeck;
@@ -110,6 +117,7 @@ void LinkedList::removeNode(string key){
             //In the case of the terminal node
             else if (removedNodePtr->nextNode == 0) {
                 if(getStarter() == removedNodePtr){
+                    this->is_empty = true;
                     delete removedNodePtr;
                     return;
                 }else{
@@ -146,7 +154,6 @@ intNode* LinkedList::searchNode(string key){
     return keyNode;
 }
 
-
 //getStarter(): returns the head of the linked list
 intNode* LinkedList::getStarter(){
     if(is_empty){
@@ -154,8 +161,6 @@ intNode* LinkedList::getStarter(){
     }
     return starterNode;
 }
-
-
 
 void LinkedList::printList() {
     intNode* order = this->getStarter();
@@ -165,7 +170,6 @@ void LinkedList::printList() {
     }
     return;
 }
-
 
 bool LinkedList::contains(string key){
     intNode* order = this->getStarter();
@@ -183,4 +187,21 @@ bool LinkedList::empty(){
         return true;
     }
     return false;
+}
+
+void LinkedList::increaseCount(string key) {
+    intNode* desiredNode = searchNode(key);
+    desiredNode->counter +=1;
+}
+
+void LinkedList::decreaseCount(string key) {
+    intNode* desiredNode = searchNode(key);
+    desiredNode->counter -=1;
+}
+
+unsigned long LinkedList::getCount(string key) {
+    if (contains(key) == false) {
+        return 0;
+    }
+    return searchNode(key)->counter;
 }

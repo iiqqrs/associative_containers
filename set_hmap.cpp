@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "set_hmap.h"
 using namespace std;
 
@@ -14,10 +13,11 @@ bool set_hmap::is_in(string key) {
 
 void set_hmap::insert(string key) {
     if (is_in(key) == true) {
+        cout << "Key already exist" << endl;
         return;
     }
     else {
-        hashMap.set(key, true);
+        hashMap.set(key);
     }
 }
 
@@ -26,24 +26,11 @@ void set_hmap::remove(string key) {
         hashMap.remove(key);
     }
    else {
+       cout << "Key doesn't exist" << endl;
        return;
    }
 }
 
 bool set_hmap::is_empty() {
-    bool isTrue = true;
-    
-    //LinkedList* *arrayOfPointers = hashMap.getList();
-    
-    for (int i = 0; i < 95; i++) {
-        if (hashMap.getList()[i] == NULL) {
-            continue;
-        }
-        else {
-            isTrue = false;
-            break;
-        }
-    }
-    
-    return isTrue;
+    return hashMap.is_empty();
 }

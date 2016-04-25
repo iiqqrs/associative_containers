@@ -1,63 +1,43 @@
 #include <iostream>
-#include "llist.cpp"
-#include "set_darray.h"
-#include "darray.cpp"
+#include "map_darray.h"
+#include "darray.h"
 using namespace std;
 
-map_darray::map_array(){
-    intNode map[size];
-    count = 0;
-    size = 10000;
+map_darray::map_darray() {
+    
 }
 
-void map_darray::doubleArray() { //Tried finishing it but not sure if it's right so someone check lol
-    size *= 2;
-    Node *array2 = new Node*[size];
-    for (int = 0; i < count; i++) {
-        array2[i] = map[i];
+void map_darray::set(string key, int value) {
+    if (array.is_in(key)) {
+        cout << "Key value pair already in map" << endl;
+    }
+    else {
+        array.set(key, value);
     }
 }
 
-bool isFound = true;
-
-void map_darray::set(string key, int value){
-    if (size = count) {
-        doubleArray();
+int map_darray::get(string key) {
+    int value = 0;
+    if (array.is_in(key) == false) {
+        cout << "Key value pair not contained in the map" << endl;
     }
-    for (int i = 0; i < count; i++) {
-        if (map[i].key = key) {
-            map[i].value = value;
-            isFound = true;
-        }
-        return;
+    else {
+        value = array.getSingle(key);
     }
+    return value;
 }
 
-void map_darray::get(string key) {
-    for (int i = 0; i < count; i++) {
-        if (map[i].key = key) {
-            return map[i].value = value;
-        }
-    }
-}
 
-void map_darray::remove(string key) {
-    for (int i = 0; i < count; i++) {
-        if (map[i].key = key) {
-            return map[i].key = "DELETED";
-        }
+void map_darray::remove(string key) {   
+    if(array.is_in(key)) {
+        array.remove(key, false);
+    }
+    else {
+        cout << "Value key pair is not contained in the map" << endl;
     }
 }
 
 int& map_darray::operator[](string key){
-    int blahblah = get(key);
-    int *blahblah = new int(blahblah)
-    return blahblah;
+   
+    return (array.getSingle(key));
 }
-
-/*
-main(){
-    cout << "Please enter key" << endl;
-    cin >> key;
-}
-*/

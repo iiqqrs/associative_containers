@@ -1,17 +1,15 @@
 #include <iostream>
+#include "multiset_darray.h"
 using namespace std;
 
-multiset_darray::set_array(){
+
+multiset_darray::multiset_darray(){
     darray newArray;
     multisetArray = newArray;
 }
 
 void multiset_darray::insert(string key){
     multisetArray.insert(key);
-}
-
-void multiset_darray::remove(string key){
-    multisetArray.remove(key);
 }
 
 bool multiset_darray::is_in(string key){
@@ -27,9 +25,9 @@ unsigned long multiset_darray::count(string key){
 }
 
 void multiset_darray::removeOne(string key){
-    multisetArray.remove(key, false);
+    return multisetArray.remove(key, false);
 }
 
 void multiset_darray::removeAll(string key){
-    multisetArray.remove(key, true);
+    return multisetArray.remove(key, true);
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include "darray.h"
 #ifndef _LLIST_H
 #define _LLIST_H
 using namespace std;
@@ -10,15 +11,19 @@ struct intNode {
     string stringVal;
     intNode* prevNode;
     intNode* nextNode;
+    //int* multVal;
+    //int valCount;
     bool isIn;
-    int counter;
+    unsigned long counter;
     intNode(){
         isIn = true;
-        intVal=0;
+        intVal = 0;
         stringVal;
         prevNode = 0;
         nextNode = 0;
-        counter = 1;
+        counter = 0;
+        //multVal = 0;
+        //valCount = 0;
     }
 };
 
@@ -41,10 +46,14 @@ class LinkedList{
     intNode* createNode(string key);
     bool contains(string key);
     bool empty();
+    void increaseCount(string key);
+    void decreaseCount(string key);
+    unsigned long getCount(string key);
     private:
     bool is_empty = true;
     intNode* starterNode;
     intNode* nodeOnDeck;
+    
 };
 
 #endif

@@ -1,4 +1,3 @@
-//Dynamic Array
 #include "darray.h"
 #include "llist.h"
 #include <string>
@@ -23,22 +22,16 @@ int darray::getIndex(string key){
 void darray::makeBigger(){
     size += 1;
     arr_Node* temp = dynamicArray;
-    dynamicArray = (arr_Node*) malloc(sizeof(arr_Node)*size);
-    
+    dynamicArray = new arr_Node[size];
     if(size-1 == 0){
-        delete temp;
-        //delete[] temp;
-        //free (temp);
         return;
     }
-    
-    
+   
     for(int i=0; i < size-1; i++){
+        arr_Node node;                  //To be deleted???
         (*(dynamicArray+i)) = (*(temp + i));
     }
-    delete temp;
-    //delete[] temp;
-    //free(temp);
+    
 }
 
 arr_Node* darray::getArray(){
@@ -51,7 +44,7 @@ int darray::getSize(){
 
 bool darray::is_in(string key){
     for(int i = 0; i < size; i++){
-        if((*(dynamicArray+i)).stringVal == key){
+        if(((*(dynamicArray+i)).stringVal).compare(key.c_str()) == 0){
             return true;
         }
     }
@@ -63,38 +56,42 @@ void darray::insert(string key){
     if(is_in(key)){
         for(i=0; i < size; i++){
             if((*(dynamicArray+i)).stringVal == key){
-                //increment
                 (*(dynamicArray+i)).counter +=1;
             }
         }
     }
     else {
         makeBigger();
-        arr_Node temp;
         arr_Node* pTemp = new (dynamicArray + size - 1) arr_Node();
-        temp = *pTemp;
-        pTemp->stringVal = key;
         
-        delete pTemp;
+        pTemp->stringVal.assign(key);
+        pTemp->isIn = true;
+        pTemp->counter += 1;
+        
     }
 }
 
 void darray::remove(string key, bool all){
+    if(is_in(key) == false){
+        cout << "There is nothing in here to delete" << endl;
+    }
     if(is_in(key)){
         int index_remove;
         bool skip = false;
         for(int i=0; i<size; i++){
             if((*(dynamicArray+i)).stringVal == key){
                 index_remove = i;
+                break;
             }
         }
+        
         if(all || occurences(key) <= 1){
             arr_Node* temp = dynamicArray;
             size -= 1;
-            dynamicArray = (arr_Node*) malloc(sizeof(arr_Node)*size);
-
-            int i;
-            while(i != index_remove & i < index_remove){
+            dynamicArray = new arr_Node[size];
+            int i = 0;
+            while(i < index_remove){
+                cout << (*(temp + i)).stringVal << endl;
                 (*(dynamicArray+i)) = (*(temp + i));
                 i++;
             }
@@ -124,7 +121,6 @@ int darray::occurences(string key){
         return 0;
     }
     else{
-        //Look at node with key "key" and return count attribute
         for(int i=0; i<size; i++){
             if((*(dynamicArray+i)).stringVal == key){
                 return (*(dynamicArray+i)).counter;
@@ -138,6 +134,7 @@ void darray::set(string key, int value){
     if (is_in(key)) {
         (*(dynamicArray+getIndex(key))).intList.addNode(value, key);
         (*(dynamicArray+getIndex(key))).intCounter += 1;
+        (*(dynamicArray+getIndex(key))).counter +=1;
     }else{
         insert(key);
         (*(dynamicArray+getIndex(key))).intList.addNode(value, key);
@@ -147,16 +144,11 @@ void darray::set(string key, int value){
 }
 
 //I think this is complete
-int darray::getSingle(string key) {
+int& darray::getSingle(string key) {
     if(is_in(key)) {
-        int value = (*(dynamicArray+getIndex(key))).intList.getStarter()->intVal;
+        int& value = ((dynamicArray+getIndex(key)))->intList.getStarter()->intVal;
         return value;
     }
-    else {
-        cout << "Key is not in the list" << endl;
-        return 0;
-    }
-   
 }
 
 //I think this is complete
@@ -164,16 +156,17 @@ int* darray::getList(string key) {
     int* nullReturn = NULL;
     if (is_in(key)) {
         int numInts = (*(dynamicArray+getIndex(key))).intCounter; //intCounter contains the number of nodes in the intVal LinkedList
-        int* intList[numInts];
+        int* intList = new int[numInts];
         intNode* values = (*(dynamicArray+getIndex(key))).intList.getStarter();
         for(int i = 0; i < numInts; i++) {
-            (*(*(intList+i))) = (values->intVal);
+            (*(intList+i)) = (values->intVal);
             values = values->nextNode;
         }
-        return (*(intList));
+        return ((intList));
     }
     else {
         cout << "Key is not in the list" << endl;
         return nullReturn;
     }
 }
+

@@ -1,7 +1,7 @@
 using namespace std;
 #include "hmap.h"
-#ifndef set_hmap.h
-#define set_hmap.h
+#ifndef _SET_HMAP_H
+#define _SET_HMAP_H
 class set_hmap {
     private:
     hmap hashMap;
@@ -12,3 +12,5 @@ class set_hmap {
     void remove(string key);
     bool is_empty();
 };
+
+#endif

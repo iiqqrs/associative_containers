@@ -1,10 +1,12 @@
 //Hash Map
 #include "hmap.h"
 #include "llist.h"
+#include "darray.h"
 using namespace std;
 
-hmap::hmap() {
-    
+hmap::hmap(){
+    arrayOfPointers = new LinkedList[2000000];
+    entries = 0;
 }
 
 unsigned int hmap::hashMachine( const void * key, int len, unsigned int seed ){
@@ -57,20 +59,14 @@ unsigned int hmap::hashMachine( const void * key, int len, unsigned int seed ){
 	return h%2000000;
 } 
 
-bool hmap::is_in(string key) {
-    //int index = hashMachine(key);
+bool hmap::is_in(string key){
     unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
-    cout << "Index value is: " << index << endl;
-    cout << "Problem?" << endl;
-    if ((arrayOfPointers[index]->getStarter()->stringVal) == key) {
-        cout << "Dis guy?" << endl;
-        return true;
-    }
-    else {
-        cout << "Problem??" << endl;
-        intNode* node = arrayOfPointers[index]->getStarter();
-        while (node != NULL) {
-            cout << "Or dis guy?" << endl;
+    //cout << "Index value is: " << index << endl;
+    if((*(arrayOfPointers + index)).empty()){
+        return false;
+    }else{
+        intNode* node = (*(arrayOfPointers+index)).getStarter();
+        while (node != NULL){
             if (node->stringVal == key) {
                 return true;
             }
@@ -83,64 +79,93 @@ bool hmap::is_in(string key) {
     return false;
 }
 
-void hmap::set(string key, int value) { //the int value could also be a bool for Set (true==1, false==0)
-    //int index = hashMachine(key);
+
+void hmap::set(string key) {
     unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
-    
-    if (arrayOfPointers[index] == NULL) {
-        
+    if ((*(arrayOfPointers+index)).empty()){
         LinkedList newList;
-        arrayOfPointers[index] = &newList;
+        newList.addNode(key); 
+        *(arrayOfPointers+index) = newList;
+        entries +=1; // What is this for
+    }else{
+        (*(arrayOfPointers+index)).searchNode(key)->counter += 1;
+        entries +=1;
     }
-    //
-    //problem child
-    cout << "index is " << index << endl;
-    //cout << (&(*(arrayOfPointers[index]))) << endl; Good test to see where the pointer's pointing
-    (*(arrayOfPointers[index])).addNode(value, key);
-    cout << "end" << endl;
+}
+
+void hmap::set(string key, int value){
+    unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
+    if ((*(arrayOfPointers+index)).empty()){
+        LinkedList newList;
+        newList.addNode(value, key); 
+        *(arrayOfPointers+index) = newList;
+        entries +=1;
+    }else{
+        (*(arrayOfPointers+index)).addNode(value,key);
+        entries +=1;
+    }
 }
 
 void hmap::remove(string key){
-    if (!(is_in(key))) {
-        return;
-    }else{
-        //int index = hashMachine(key);
-        unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
-        arrayOfPointers[index]->removeNode(key);
-        return;
-    }
-    return;
-}
-
-int hmap::get(string key) {
-    int index = 1;
-    if (is_in(key)) {
-        cout << "Jesse loves this" <<endl;
-        //int index = hashMachine(key);
-        unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
-
-        if ((arrayOfPointers[index]->getStarter()->stringVal) == key) {
-            return arrayOfPointers[index]->getStarter()->intVal;
-        }
-        else {
-            intNode* node = arrayOfPointers[index]->getStarter();
-            while (node != NULL) {
-                if (node->stringVal == key) {
-                    return node->intVal;
-                }
-                else {
-                    node = node->nextNode;
-                }
-            }
+    unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
+    if(is_in(key)){
+        while((arrayOfPointers+index)->contains(key)){
+            (arrayOfPointers+index)->removeNode(key);
+            entries -= 1;
         }
     }
     else {
-        cout << "The value does not exist" << endl;
-        return 0;
+        cout << "Key value pair is not contained within the table" << endl;
     }
 }
 
-LinkedList* hmap::getList() {
-    return *(arrayOfPointers);
+
+bool hmap::is_empty(){
+    if (entries == 0) {
+        return true;
+    }
+    
+    return false;
 }
 
+//For map only
+int hmap::get(string key){
+    unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
+    if(is_in(key)){
+        return (*(arrayOfPointers+index)).searchNode(key)->intVal;
+    }
+    return 0;
+}
+// also for map only
+/*void hmap::set_map(string key, int value){
+    unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
+    if ((*(arrayOfPointers+index)).empty()){
+        LinkedList newList;
+        newList.addNode(value, key); 
+        *(arrayOfPointers+index) = newList;
+        entries +=1;
+    }else{
+        (*(arrayOfPointers+index)).getStarter()->stringVal = value;
+    }
+}*/
+
+
+//For multimap
+LinkedList* hmap::getList(string key){
+    unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
+    if((*(arrayOfPointers+index)).contains(key)){
+        return ((arrayOfPointers+index));
+    }
+    return NULL;
+}
+
+unsigned long hmap::getCount(string key) {
+    unsigned int index = hashMachine(&*key.begin(), key.size(), 1337);
+    
+    if((*(arrayOfPointers+index)).contains(key)){
+        return (*(arrayOfPointers+index)).getCount(key);
+    }
+    else {
+        return 0;
+    }
+}
